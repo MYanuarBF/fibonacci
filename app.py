@@ -1,25 +1,37 @@
-from browser import document
+from browser import document, alert
 
 input = document['input']
 button = document['btn']
 output = document['output']
 
-fibonacci_cache={}
-              
-def fibonacci(n):
-    if n in fibonacci_cache:
-        return fibonacci_cache[n]
-    if n == 1:
-        value=1
-    elif n == 2:
-        value=1
-    elif n>2: 
-        value =fibonacci(n-1)+ fibonacci(n-2)
-        fibonacci_cache[n]=value
-    return value 
-            
-def main():
-    result = fibonacci(input.value)
-    output.textContent = str(result)
+def getNum(x):
+    temp = x
+    try:
+        temp = int(x)
+    except ValueError:
+        temp = float(x)
+    finally:
+        if temp != '' and type(temp) is str:
+            alert('Harap masukkan angka')
+            temp = ''
+            input.value = temp
+            return temp
+        else:
+            return temp
 
+FibArray = [0, 1]
+def fibonacci(n):
+    if n<0:
+        print("Incorrect input")
+    elif n<= len(FibArray):
+        return FibArray[n-1]
+    else:
+        temp_fib = fibonacci(n-1)+fibonacci(n-2)
+        FibArray.append(temp_fib)
+        return temp_fib
+
+def main(ev):
+    num = getNum(input.value)
+    result = fibonacci(num+1)
+    output.textContent = result
 button.bind('click', main)
