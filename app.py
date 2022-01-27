@@ -33,5 +33,5 @@ def fibonacci(n):
 def main(ev):
     num = getNum(input.value)
     result = fibonacci(num+1)
-    output.textContent = result
+    output.textContent = str(result)
 button.bind('click', main)
